@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список комментариев</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const CommentsList = () => {
+      const [comments, setComments] = useState([
+        { id: 1, text: "Это первый комментарий" },
+        { id: 2, text: "Это второй комментарий" },
+        { id: 3, text: "Это третий комментарий" }
+      ]);
+
+      const handleDeleteComment = (id) => {
+        setComments(comments.filter(comment => comment.id !== id));
+      };
+
+      return (
+        <div>
+          <h2>Список комментариев</h2>
+          {comments.map(comment => (
+            <div key={comment.id}>
+              <p>{comment.text}</p>
+              <button onClick={() => handleDeleteComment(comment.id)}>Удалить</button>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    ReactDOM.render(
+      <CommentsList />,
+      document.getElementById('root')
+    );
+  </script>
+</body>
+</html>
